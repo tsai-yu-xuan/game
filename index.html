@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href=https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.css
+    integrity="sha512-VcyUgkobcyhqQl74HS1TcTMnLEfdfX6BbjhH8ZBjFU9YTwHwtoRtWSGzhpDVEJqtMlvLM2z3JIixUOu63PNCYQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>換裝娃娃 Dress Up Paper Dolls</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background-color: #e9a9c2;
+      --background-color-rgba: rgba(234, 169, 194, 0.8);
+      --border-color: #9c1466;
+    }
+
+    /* 整體背景色 */
+    body {
+      background: #242020;
+    }
+
+    .star {
+      width: 60px;
+      position: relative;
+      top: -820px;
+      right: -800px;
+      z-index: 5;
+      animation: sway 2s infinite ease-in-out;
+    }
+
+    /* 搖擺動畫*/
+    @keyframes sway {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      50% {
+        transform: rotate(15deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    #container {
+      width: 1100px;
+      height: 830px;
+      border: 7px solid var(--border-color);
+      border-radius: 20px;
+      margin: auto;
+      position: relative;
+      top: 10px;
+      background: url(./img/bg-1.jpg) no-repeat 10% 50%;
+      background-size: 105%;
+      /* filter: brightness(90%); */
+    }
+
+    /* 遊戲內上方 */
+    #navbar {
+      width: 100%;
+      height: 50px;
+      border-radius: 10px 10px 0px 0;
+      background-color: var(--background-color);
+    }
+
+    /* 遊戲內上方 用table做*/
+    #navbar table {
+      width: 95%;
+      margin: auto;
+      /* border: 10px solid #000; */
+      border-collapse: collapse;
+      border-spacing: 0;
+
+    }
+
+    #navbar td {
+      /* border: 1px solid #242020; */
+      width: 20%;
+      margin: auto;
+      padding: 0;
+      border-collapse: collapse
+    }
+
+    .logotext img {
+      /* color: #742459; */
+      width: 450px;
+      position: absolute;
+      transform: translate(-30px, -20px);
+    }
+
+    #product {
+      width: 96%;
+      height: 93%;
+      /* border: 2px solid #000; */
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      padding: 10px;
+      margin: auto;
+    }
+
+
+    #left {
+      width: 30%;
+      height: 35%;
+      border-radius: 20px;
+      border: 5px solid var(--border-color);
+      background-color: var(--background-color-rgba);
+      position: relative;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100%;
+    }
+
+
+    .left-box,
+    .right-box {
+      width: 300px;
+      position: relative;
+      border-radius: 20px;
+      /* overflow: hidden; */
+    }
+
+    /* 衣服比較長 */
+    .left-box:nth-child(1),
+    .right-box:nth-child(1) {
+      height: 400px;
+      border: 5px solid var(--border-color);
+      background-color: var(--background-color-rgba);
+    }
+
+    /* 下身比較長 */
+    .left-box:nth-child(2),
+    .right-box:nth-child(2) {
+      height: 300px;
+      border: 5px solid var(--border-color);
+      background-color: var(--background-color-rgba);
+    }
+
+    /* 所有按鈕都吃到 */
+    button {
+      width: 50px;
+      height: 50px;
+      background: none;
+      border: none;
+    }
+
+    /* 按鈕顏色變化 */
+    .change-girl-right>img:hover,
+    .change-girl-left>img:hover,
+    .change-shoesBox-right>img:hover,
+    .change-clothesBox-right>img:hover,
+    .change-pantsBox-right>img:hover,
+    .change-shoesBox-left>img:hover,
+    .change-clothesBox-left>img:hover,
+    .change-pantsBox-left>img:hover {
+      filter: hue-rotate(-30deg);
+    }
+
+    /* 右側衣櫥框 左右邊按鈕對齊 */
+    /* .change-girl-right, */
+    .change-shoesBox-right,
+    .change-clothesBox-right,
+    .change-pantsBox-right {
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+    }
+
+    /* .change-girl-left, */
+    .change-shoesBox-left,
+    .change-clothesBox-left,
+    .change-pantsBox-left {
+      position: absolute;
+      top: 50%;
+      left: -10%;
+      transform: translate(0%, -50%);
+      z-index: 1;
+    }
+
+
+    .change-girl-left {
+      position: absolute;
+      top: -10%;
+      left: 18%;
+      transform: translate(0%, -50%);
+      z-index: 1;
+    }
+
+    .change-girl-right {
+      position: absolute;
+      top: -10%;
+      left: 40%;
+      transform: translate(0%, -50%);
+      z-index: 1;
+    }
+
+    #girl button {
+      width: 12%;
+    }
+
+    /* 所有衣櫥的寬度 */
+    .girlBox,
+    .shoesBox,
+    .clothesBox,
+    .pantsBox {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+    }
+
+    .shoesBox button,
+    .clothesBox button,
+    .pantsBox button {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      /* border: 2px solid #242020; */
+    }
+
+
+    .overflow {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden
+    }
+
+    /* 改鞋子圖的寬度 */
+    .shoesBox img {
+      width: 500px;
+      position: absolute;
+      top: -270%;
+      left: -30%;
+    }
+
+    /* 改衣服圖的寬度 */
+    .clothesBox img {
+      width: 410px;
+      position: absolute;
+      top: -29%;
+      left: -13%;
+    }
+
+    /* 改下身圖的寬度 */
+    .pantsBox img {
+      width: 400px;
+      position: absolute;
+      top: -90%;
+      left: -15%;
+    }
+
+    .girlBox img {
+      width: 200px;
+      position: absolute;
+      top: 5%;
+      left: 18%;
+    }
+
+    /* 成品 */
+    #girl {
+      width: 30%;
+      height: 72%;
+      position: relative;
+      left: 15px;
+    }
+
+    #girl img {
+      width: 100%;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="game">
+    <div id="container">
+      <div id="navbar">
+        <table>
+          <tr>
+            <td class="logotext"><img src="./img/logo/logo.png" alt=""></td>
+            <td style="text-align: center;"><a href=""><img src="./img/reload.png" alt="" style="width: 50px;"></a>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+        <div style="width: 1090px; height: 2px; border-bottom: 7px solid var(--border-color);"></div>
+      </div>
+
+      <div id="product">
+        <div id="left">
+          <!-- 放鞋子 -->
+          <div class="shoesBox">
+            <button>
+              <div class="overflow">
+                <img id="shoesMove" class="shoesImg" src="./img/Shoes/Shoes-1-03.png" alt="">
+              </div>
+            </button>
+          </div>
+          <button class="change-shoesBox-right"><img style="width: 100%;" src="./img/button-right.png" alt=""></button>
+          <button class="change-shoesBox-left"><img style="width: 100%;" src="./img/button-left.png" alt=""></button>
+        </div>
+
+        <!-- 女生 -->
+        <div id="girl">
+          <button class="change-girl-right"><img style="width: 100%;" src="./img/button-right.png" alt=""></button>
+          <button class="change-girl-left"><img style="width: 100%;" src="./img/button-left.png" alt=""></button>
+
+          <div id="girlChange" class="w-100 h-100">
+            <img class="girlImg" src="./img/Girl/Girl-1-03.png" alt="">
+            <img id="okShoesImg" src="" alt="">
+            <img id="okPantsImg" src="" alt="">
+            <img id="okClothesImg" src="" alt="">
+
+
+          </div>
+
+        </div>
+        <!-- 衣服、下身衣櫥 -->
+        <div class="right-column">
+          <div class="right-box">
+            <!-- 放衣服 -->
+            <div class="clothesBox">
+              <button>
+                <div class="overflow">
+                  <img id="clothesMove" class="clothesImg" src="./img/Clothes/Clothes-1-03.png" alt="">
+                </div>
+              </button>
+            </div>
+            <button class="change-clothesBox-right"><img style="width: 100%;" src="./img/button-right.png"
+                alt=""></button>
+            <button class="change-clothesBox-left"><img style="width: 100%;" src="./img/button-left.png"
+                alt=""></button>
+          </div>
+          <div class="right-box">
+            <!-- 放下身 -->
+            <div class="pantsBox">
+              <button>
+                <div class="overflow">
+                  <img id="pantsMove" class="pantsImg" src="./img/Pants/Pants-1-03.png" alt="">
+                </div>
+              </button>
+            </div>
+            <button class="change-pantsBox-right"><img style="width: 100%;" src="./img/button-right.png"
+                alt=""></button>
+            <button class="change-pantsBox-left"><img style="width: 100%;" src="./img/button-left.png" alt=""></button>
+          </div>
+        </div>
+      </div>
+      <img class="star" src="./img/logo/star.png" alt="">
+      <img class="star" src="./img/logo/star.png" alt="">
+      <img class="star" src="./img/logo/star.png" alt="">
+
+    </div>
+  </div>
+
+</body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'
+  integrity='sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=='
+  crossorigin='anonymous'></script>
+
+<script>
+  // 鞋子框 設定一個shoesNamber讓連結可以改 做有按鈕共用一個設定一個shoesNamber讓連結可以改
+  let shoesNamber = 0
+
+  // 鞋子框的右邊按鈕做換圖片
+  $('.change-shoesBox-right').on('click', function () {
+    // console.log(shoesRightNamber);
+    if (shoesNamber < 18) {
+      shoesNamber++
+      // console.log(shoesRightNamber);
+    } else {
+      shoesNamber = 0;
+    }
+    $('.shoesImg').attr('src', `./img/Shoes/Shoes-${shoesNamber + 1}-03.png`)
+    console.log(shoesNamber);
+  })
+
+  // 鞋子框的右邊按鈕做換圖片
+  $('.change-shoesBox-left').on('click', function () {
+    if (shoesNamber > 0) {
+      shoesNamber--
+    } else {
+      shoesNamber = 18;
+    }
+    $('.shoesImg').attr('src', `./img/Shoes/Shoes-${shoesNamber + 1}-03.png`)
+    console.log(shoesNamber);
+  })
+  // ---------------------------------------------------------------------------------------
+  // 衣服框 設定一個clothesNamber讓連結可以改 做有按鈕共用一個設定一個clothesNamber讓連結可以改
+  let clothesNamber = 0
+
+  // 衣服框的右邊按鈕做換圖片
+  $('.change-clothesBox-right').on('click', function () {
+    // console.log(shoesRightNamber);
+    if (clothesNamber < 28) {
+      clothesNamber++
+      // console.log(shoesRightNamber);
+    } else {
+      clothesNamber = 0;
+    }
+    $('.clothesImg').attr('src', `./img/Clothes/Clothes-${clothesNamber + 1}-03.png`)
+    console.log(clothesNamber);
+  })
+
+  // 衣服框的右邊按鈕做換圖片
+  $('.change-clothesBox-left').on('click', function () {
+    if (clothesNamber > 0) {
+      clothesNamber--
+    } else {
+      clothesNamber = 28;
+    }
+    $('.clothesImg').attr('src', `./img/Clothes/Clothes-${clothesNamber + 1}-03.png`)
+    console.log(clothesNamber);
+  })
+  // ---------------------------------------------------------------------------------------
+  // 下身框 設定一個pantsNamber讓連結可以改 做有按鈕共用一個設定一個pantsNamber讓連結可以改
+  let pantsNamber = 0
+
+  // 下身框的右邊按鈕做換圖片
+  $('.change-pantsBox-right').on('click', function () {
+    // console.log(shoesRightNamber);
+    if (pantsNamber < 12) {
+      pantsNamber++
+      // console.log(shoesRightNamber);
+    } else {
+      pantsNamber = 0;
+    }
+    $('.pantsImg').attr('src', `./img/Pants/Pants-${pantsNamber + 1}-03.png`)
+    console.log(pantsNamber);
+  })
+
+  // 下身框的左邊按鈕做換圖片
+  $('.change-pantsBox-left').on('click', function () {
+    if (pantsNamber > 0) {
+      pantsNamber--
+    } else {
+      pantsNamber = 12;
+    }
+    $('.pantsImg').attr('src', `./img/Pants/Pants-${pantsNamber + 1}-03.png`)
+    console.log(pantsNamber);
+  })
+  // ---------------------------------------------------------------------------------------
+  // 女生框 設定一個pantsNamber讓連結可以改 做有按鈕共用一個設定一個pantsNamber讓連結可以改
+  let girlNamber = 0
+
+  // 女生框的右邊按鈕做換圖片
+  $('.change-girl-right').on('click', function () {
+    // console.log(shoesRightNamber);
+    if (girlNamber < 5) {
+      girlNamber++
+      // console.log(shoesRightNamber);
+    } else {
+      girlNamber = 0;
+    }
+    $('.girlImg').attr('src', `./img/Girl/Girl-${girlNamber + 1}-03.png`)
+    console.log(girlNamber);
+  })
+
+  // 女生框的左邊按鈕做換圖片
+  $('.change-girl-left').on('click', function () {
+    if (girlNamber > 0) {
+      girlNamber--
+    } else {
+      girlNamber = 5;
+    }
+    $('.girlImg').attr('src', `./img/Girl/Girl-${girlNamber + 1}-03.png`)
+    console.log(girlNamber);
+  })
+  // ---------------------------------------------------------------------------------------
+  // 監聽
+  let shoesMove = document.querySelector('#shoesMove')
+  shoesMove.addEventListener('dragstart', dragStartShoes)
+
+  let shoesImg = ''
+  function dragStartShoes(e) {
+    shoesImg = e.target.src
+    console.log(shoesImg);
+  }
+
+  let clothesMove = document.querySelector('#clothesMove')
+  clothesMove.addEventListener('dragstart', dragStartClothes)
+
+  let clothesImg = ''
+  function dragStartClothes(e) {
+    clothesImg = e.target.src
+    console.log(clothesImg);
+  }
+
+  let pantsMove = document.querySelector('#pantsMove')
+  pantsMove.addEventListener('dragstart', dragStartPants)
+
+  let pantsImg = ''
+  function dragStartPants(e) {
+    pantsImg = e.target.src
+    console.log(pantsImg);
+  }
+
+  let girlChange = document.querySelector('#girlChange')
+  girlChange.addEventListener('drop', dropped)
+  girlChange.addEventListener('dragenter', cancelDefault)
+  girlChange.addEventListener('dragover', cancelDefault)
+
+  const okClothesImg = document.querySelector('#okClothesImg')
+  const okPantsImg = document.querySelector('#okPantsImg')
+  const okShoesImg = document.querySelector('#okShoesImg')
+
+  function dropped(e) {
+    cancelDefault(e)
+    console.log(123);
+    okClothesImg.src = clothesImg
+    okPantsImg.src = pantsImg
+    okShoesImg.src = shoesImg
+    // let id = e.dataTransfer.getData('text/plain');
+    //   e.target.appendChild(document.querySelector(`#${id}`));
+  };
+
+  function cancelDefault(e) {
+    console.log(456);
+    e.preventDefault();
+    e.stopPropagation();
+    return false
+  };
+
+
+
+</script>
+
+</html>
